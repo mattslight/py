@@ -1,7 +1,8 @@
 import json
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 from flask import Flask
 from flask_testing import LiveServerTestCase
+from urllib.error import URLError, HTTPError
 
 class MyTest(LiveServerTestCase):
 
@@ -13,5 +14,11 @@ class MyTest(LiveServerTestCase):
 
   def test_flask_application_is_up_and_running(self):
     print(self.get_server_url())
-    response = urlopen(self.get_server_url())
-    self.assertEqual(response.code, 200) 
+    req = Request(self.get_server_url())
+    req.add_header('user-agent', 'Mozilla/5.0')
+    try:
+      response = urlopen(req)
+    except HTTPError as e:
+      self.assertEqual(e.code, 404) 
+    else:
+      self.assertEqual(response.code, 200) 
