@@ -10,11 +10,6 @@ class MyTest(LiveServerTestCase):
     app.config['TESTING'] = True
     return app
 
-  def test_status(self):
-    expected = {
-      "status": "Status 0"
-    }
-
   def test_flask_application_is_up_and_running(self):
     response = urlopen(self.get_server_url())
     self.assertEqual(response.code, 200) 

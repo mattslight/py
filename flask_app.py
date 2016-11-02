@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from flask import Flask
+from config import *
 import json
 import requests
 
@@ -8,7 +9,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST', 'PUT'])
 def main():
     API_KEY = "231506b67b2f31242d542c0de6287cd3"
-    PASSWORD = "***REMOVED***"
+    PASSWORD = config.PASSWORD 
     REQ_URL = "https://prosfx.myshopify.com"
     REQ_GET_ORDER = "/admin/orders.json"
     REQ_PUT_ORDER =  "/admin/orders/%s.json" # %s should be order id
