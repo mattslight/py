@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+    ServerName py.slight.me
+
+    WSGIDaemonProcess py user=mattslight group=mattslight threads=5 python-path=/home/mattslight/anaconda3/lib/python3.5/site-packages
+    WSGIScriptAlias / /var/www/py/py.wsgi
+
+    <Directory /var/www/py>
+        WSGIProcessGroup py
+        WSGIApplicationGroup %{GLOBAL}
+        Order deny,allow
+        Allow from all
+    </Directory>
+</VirtualHost>
